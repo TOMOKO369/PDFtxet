@@ -8,20 +8,20 @@
     <meta name="description" content="ブラウザ内で完結する安全なPDFテキスト抽出ツール。アップロード不要で高速に変換します。">
     <style>
         :root {
-            --bg-color: #0f172a;
-            --card-bg: rgba(30, 41, 59, 0.7);
-            --border-color: rgba(255, 255, 255, 0.1);
-            --text-color: #f8fafc;
-            --primary-color: #3b82f6;
-            --primary-hover: #2563eb;
-            --secondary-color: #475569;
-            --secondary-hover: #334155;
-            --success-color: #10b981;
+            --bg-color: #ffffff;
+            --card-bg: #ffffff;
+            --border-color: #000000;
+            --text-color: #000000;
+            --primary-color: #000000;
+            --primary-hover: #333333;
+            --secondary-color: #ffffff;
+            --secondary-hover: #e5e5e5;
+            --success-color: #000000;
         }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            background: var(--bg-color);
             color: var(--text-color);
             margin: 0;
             padding: 2rem;
@@ -30,18 +30,18 @@
             justify-content: center;
             align-items: center;
             box-sizing: border-box;
+            background-image: radial-gradient(#d1d5db 1px, transparent 1px);
+            background-size: 20px 20px;
         }
 
         .container {
             width: 100%;
             max-width: 800px;
             background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 24px;
-            border: 1px solid var(--border-color);
+            border-radius: 0;
+            border: 3px solid var(--border-color);
             padding: 3rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            box-shadow: 8px 8px 0px 0px #000000;
             animation: fadeIn 0.6s ease-out;
         }
 
@@ -62,25 +62,32 @@
             margin-top: 0;
             margin-bottom: 0.5rem;
             font-size: 2.5rem;
-            background: linear-gradient(to right, #60a5fa, #a78bfa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+            color: #000000;
+            text-transform: uppercase;
+            letter-spacing: -1px;
         }
 
         p.subtitle {
             text-align: center;
-            color: #94a3b8;
+            color: #000000;
+            font-weight: 700;
             margin-bottom: 2.5rem;
+            border-bottom: 3px solid #000;
+            padding-bottom: 1rem;
+            display: inline-block;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .dropzone {
-            border: 2px dashed var(--border-color);
-            border-radius: 16px;
+            border: 3px dashed var(--border-color);
+            border-radius: 0;
             padding: 3rem 2rem;
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s ease;
-            background: rgba(15, 23, 42, 0.4);
+            transition: all 0.2s ease;
+            background: #ffffff;
             margin-bottom: 2rem;
             position: relative;
             overflow: hidden;
@@ -89,23 +96,28 @@
         .dropzone:hover,
         .dropzone.dragover {
             border-color: var(--primary-color);
-            background: rgba(59, 130, 246, 0.1);
+            background: #f0f0f0;
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0px 0px #000000;
         }
 
         .dropzone-icon {
             font-size: 3rem;
             margin-bottom: 1rem;
-            color: #94a3b8;
+            color: #000000;
         }
 
         .dropzone-text {
             font-size: 1.1rem;
+            font-weight: 800;
             margin-bottom: 0.5rem;
+            color: #000000;
         }
 
         .dropzone-subtext {
             font-size: 0.9rem;
-            color: #64748b;
+            font-weight: 600;
+            color: #555555;
         }
 
         input[type="file"] {
@@ -126,21 +138,24 @@
         textarea {
             width: 100%;
             height: 400px;
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
+            background: #ffffff;
+            border: 3px solid var(--border-color);
+            border-radius: 0;
             padding: 1.5rem;
             color: var(--text-color);
             font-size: 1rem;
             line-height: 1.6;
+            font-weight: 500;
             resize: vertical;
             box-sizing: border-box;
             outline: none;
-            transition: border-color 0.3s ease;
+            transition: all 0.2s ease;
         }
 
         textarea:focus {
             border-color: var(--primary-color);
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0px 0px #000000;
         }
 
         .controls {
@@ -153,10 +168,15 @@
 
         .file-info {
             font-size: 0.9rem;
-            color: #94a3b8;
+            font-weight: 700;
+            color: #000000;
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border: 3px solid #000;
+            background: #fff;
+            box-shadow: 2px 2px 0px 0px #000000;
         }
 
         .actions {
@@ -167,29 +187,33 @@
         button {
             background: var(--primary-color);
             color: white;
-            border: none;
-            border-radius: 8px;
+            border: 3px solid #000000;
+            border-radius: 0;
             padding: 0.75rem 1.5rem;
             font-size: 1rem;
-            font-weight: 600;
+            font-weight: 800;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.1s ease;
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            box-shadow: 4px 4px 0px 0px #000000;
         }
 
         button:hover {
             background: var(--primary-hover);
-            transform: translateY(-2px);
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px 0px #000000;
         }
 
         button:active {
-            transform: translateY(0);
+            transform: translate(4px, 4px);
+            box-shadow: 0px 0px 0px 0px #000000;
         }
 
         button.secondary {
             background: var(--secondary-color);
+            color: #000000;
         }
 
         button.secondary:hover {
@@ -198,10 +222,11 @@
 
         button.success {
             background: var(--success-color);
+            color: #ffffff;
         }
 
         button.success:hover {
-            background: #059669;
+            background: #222222;
         }
 
         .loader-wrapper {
@@ -210,6 +235,8 @@
             align-items: center;
             gap: 1rem;
             margin: 3rem 0;
+            font-weight: 800;
+            color: #000000;
         }
 
         .loader-wrapper.active {
@@ -219,8 +246,8 @@
         .loader {
             width: 48px;
             height: 48px;
-            border: 5px solid var(--border-color);
-            border-bottom-color: var(--primary-color);
+            border: 5px solid #e5e5e5;
+            border-bottom-color: #000000;
             border-radius: 50%;
             display: inline-block;
             box-sizing: border-box;
@@ -240,6 +267,7 @@
         @media (max-width: 600px) {
             .container {
                 padding: 1.5rem;
+                box-shadow: 4px 4px 0px 0px #000000;
             }
 
             .controls {
